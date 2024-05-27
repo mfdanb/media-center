@@ -1,0 +1,129 @@
+services:
+
+  glances:
+    container_name: glances
+    image: nicolargo/glances:latest
+    restart: unless-stopped
+    pid: host
+    network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - "GLANCES_OPT=-w"
+    ports:
+      - 61208-61209:61208-61209
+
+  qbittorrent:
+    container_name: qbittorrent
+    image: qbittorrentofficial/qbittorrent-nox:latest
+    restart: unless-stopped
+    environment:
+      - QBT_EULA=accept
+      - QBT_VERSION=latest
+      - QBT_WEBUI_PORT=8080
+      - TZ=UTC
+    ports:
+      # for bittorrent traffic
+      - 6881:6881/tcp
+      - 6881:6881/udp
+      # for WebUI
+      - 8080:8080/tcp
+    volumes:
+      - /opt/pi-media-center/config/qbittorrent-nox:/config
+      - /media/hdd1/data:/data
+
+  filebrowser:
+    container_name: filebrowser
+    image: filebrowser/filebrowser:latest
+    restart: unless-stopped
+    ports:
+      - 8081:80
+    volumes:
+      - /opt/pi-media-center/config/filebrowser:/config
+      - /media/hdd1:/srv
+
+  plex:
+    container_name: plex
+    image: linuxserver/plex:latest
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - VERSION=docker
+    volumes:
+      - /opt/pi-media-center/config/plex:/config
+      - /media/hdd1/data/media:/data/media
+    ports:
+      - 32400:32400
+    devices:
+      - /dev/dri:/dev/dri
+
+  prowlarr:
+    container_name: prowlarr
+    image: linuxserver/prowlarr:latest
+    restart: unless-stopped
+    volumes:
+      - /opt/pi-media-center/config/prowlarr:/config
+      - /media/hdd1/data:/data
+    ports:
+      - 9696:9696
+
+  radarr:
+    container_name: radarr
+    image: linuxserver/radarr:latest
+    restart: unless-stopped
+    volumes:
+      - /opt/pi-media-center/config/radarr:/config
+      - /media/hdd1/data:/data
+    ports:
+      - 7878:7878
+
+  sonarr:
+    container_name: sonarr
+    image: linuxserver/sonarr:latest
+    restart: unless-stopped
+    volumes:
+      - /opt/pi-media-center/config/sonarr:/config
+      - /media/hdd1/data:/data
+    ports:
+      - 8989:8989
+
+  overseerr:
+    container_name: overseerr
+    image: linuxserver/overseerr:latest
+    restart: unless-stopped
+    volumes:
+      - /opt/pi-media-center/config/overseerr:/config
+    ports:
+      - 5055:5055
+
+  bazarr:
+    container_name: bazarr
+    image: linuxserver/bazarr:latest
+    restart: unless-stopped
+    volumes:
+      - /opt/pi-media-center/config/bazarr:/config
+      - /media/hdd1/data:/data
+    ports:
+      - 6767:6767
+
+  readarr:
+    container_name: readarr
+    image: linuxserver/readarr:develop
+    restart: unless-stopped
+    volumes:
+      - /opt/pi-media-center/config/readarr:/config
+      - /media/hdd1/data:/data
+    ports:
+      - 8787:8787
+
+  flaresolverr:
+    container_name: flaresolverr
+    image: flaresolverr/flaresolverr:latest
+    restart: unless-stopped 
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - TZ=Europe/London
+    ports:
+      - "8191:8191"
