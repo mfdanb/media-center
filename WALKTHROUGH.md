@@ -1,6 +1,6 @@
 # Plex
 
-![Plex](docs\images\pi-media-center-Plex.drawio.png)
+![Plex](docs/images/pi-media-center-Plex.drawio.png)
 
 # Things to pay attention to
 
@@ -22,7 +22,7 @@ We don't want to do any of this by hand.
 
 Radarr will manage your movie library for you, while Sonarr will manage your TV shows.
 
-![Radarr and Sonarr](docs\images\pi-media-center-Radarr-and-Sonarr.drawio.png)
+![Radarr and Sonarr](docs/images/pi-media-center-Radarr-and-Sonarr.drawio.png)
 
 They can:
 
@@ -59,7 +59,7 @@ They can:
 
 Bazarr will automatically download subtitles for everything you have. (and sync them to your audio if you want)
 
-![Bazarr](docs\images\pi-media-center-Bazarr.drawio.png)
+![Bazarr](docs/images/pi-media-center-Bazarr.drawio.png)
 
 # Overseerr
 
@@ -67,7 +67,7 @@ Overseerr is the main web interface my users/family interact with to request med
 
 I can manually or automatically approve their requests, which will be forwarded to Radarr/Sonarr.
 
-![Overseerr](docs\images\pi-media-center-Overseerr.drawio.png)
+![Overseerr](docs/images/pi-media-center-Overseerr.drawio.png)
 
 # A word on Plex Pass
 
