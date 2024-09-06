@@ -1,6 +1,6 @@
 # Plex
 
-![Plex](docs/images/media-server-Plex.drawio.png)
+![Plex](docs\images\pi-media-center-Plex.drawio.png)
 
 # Things to pay attention to
 
@@ -18,12 +18,11 @@
 
 We don't want to do any of this by hand.
 
-
-# Enter Radarr & Sonarr
+# Enter Radarr, Sonarr
 
 Radarr will manage your movie library for you, while Sonarr will manage your TV shows.
 
-![Radarr and Sonarr](docs/images/media-server-Radarr-and-Sonarr.drawio.png)
+![Radarr and Sonarr](docs\images\pi-media-center-Radarr-and-Sonarr.drawio.png)
 
 They can:
 
@@ -42,19 +41,25 @@ They can:
 
 # Sidenotes
 
-- never ever import an unmanaged library
-	- if it was not named properly, the managers won't be able to magically figure out all the metadata
+- never ever use "Library import" to import your files if they were not managed by Radarr/Sonarr before
+	- Library import is for managed libraries
+	- if you wanna migrate your existing (non-managed) library, add your series/movies as monitored, then go to Wanted -> Missing -> Manual import
 - be careful when downloading season packs of TV shows
-	- I do not let Sonarr auto-import season packs of series anymore, because if it makes a mistake, you potentially have to redownload the entire thing again
-	- this can be avoided by copying the download instead of moving it, kinda depends on your settings
-
+	- example:
+		- you downloaded a season pack, and you let it auto-import
+		- unfortunately, the auto-importert got confused because of the file naming, and now recognises the first episode as the second, the second as the third, and so on
+		- now you will have to fix this manually, one by one
+		- solution: use the manual importer (Wanted -> Missing -> Manual import), and make sure everything is correct
+	- another example:
+		- you add a series with 12 season to your Sonarr, but you only monitor the first season
+		- you download a season pack with all 12 season in it
+		- during import, Sonarr will throw away all the unmonitored files/season
 
 # Bazarr
 
 Bazarr will automatically download subtitles for everything you have. (and sync them to your audio if you want)
 
-![Bazarr](docs/images/media-server-Bazarr.drawio.png)
-
+![Bazarr](docs\images\pi-media-center-Bazarr.drawio.png)
 
 # Overseerr
 
@@ -62,8 +67,7 @@ Overseerr is the main web interface my users/family interact with to request med
 
 I can manually or automatically approve their requests, which will be forwarded to Radarr/Sonarr.
 
-![Overseerr](docs/images/media-server-Overseerr.drawio.png)
-
+![Overseerr](docs\images\pi-media-center-Overseerr.drawio.png)
 
 # A word on Plex Pass
 
@@ -88,15 +92,15 @@ Note: automatically detecting intros and outros requires transcoding. If I impor
 	- HDD is in exFAT format because I didn't want to deal with file system permissions (plus easy Windows support is nice)
 		- exFAT does not support hardlinking (have to copy files, can take a bit of time, not a big deal)
 
-# Where to next, hardware wise?
+# Where to next?
 
-- upgrading to any barebones PC with an Intel N100
-	- should be able to handle any transcoding we need
-- add VPN before torrent client
-	- strongly recommended
-- consider making Plex and Overseerr accessible from the public internet?
+- upgrading to any barebones mini-PC with an Intel N100
+	- should be able to handle any transcoding I need
+- add VPN before torrent client (strongly recommended)
+- considering making Plex and Overseerr accessible from the public internet
 - add a NAS
 	- for me, probably a Synology with 4 bays, or maybe I'll take a look at https://unraid.net/
+	- technically, if you update the ram in your Synology, you could run this entire stack on your NAS
 
 # How to set this up?
 
