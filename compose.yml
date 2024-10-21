@@ -106,16 +106,6 @@ services:
     ports:
       - 6767:6767
 
-  readarr:
-    container_name: readarr
-    image: linuxserver/readarr:develop
-    restart: unless-stopped
-    volumes:
-      - /opt/pi-media-center/config/readarr:/config
-      - /media/hdd1/data:/data
-    ports:
-      - 8787:8787
-
   flaresolverr:
     container_name: flaresolverr
     image: flaresolverr/flaresolverr:latest
