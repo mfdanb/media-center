@@ -29,7 +29,7 @@ services:
       # for WebUI
       - 8080:8080/tcp
     volumes:
-      - /opt/pi-media-center/config/qbittorrent-nox:/config
+      - /opt/media-center/config/qbittorrent-nox:/config
       - /media/hdd1/data:/data
 
   filebrowser:
@@ -39,7 +39,7 @@ services:
     ports:
       - 8081:80
     volumes:
-      - /opt/pi-media-center/config/filebrowser:/config
+      - /opt/media-center/config/filebrowser:/config
       - /media/hdd1:/srv
 
   plex:
@@ -50,7 +50,7 @@ services:
     environment:
       - VERSION=docker
     volumes:
-      - /opt/pi-media-center/config/plex:/config
+      - /opt/media-center/config/plex:/config
       - /media/hdd1/data/media:/data/media
     ports:
       - 32400:32400
@@ -62,7 +62,7 @@ services:
     image: linuxserver/prowlarr:latest
     restart: unless-stopped
     volumes:
-      - /opt/pi-media-center/config/prowlarr:/config
+      - /opt/media-center/config/prowlarr:/config
       - /media/hdd1/data:/data
     ports:
       - 9696:9696
@@ -72,7 +72,7 @@ services:
     image: linuxserver/radarr:latest
     restart: unless-stopped
     volumes:
-      - /opt/pi-media-center/config/radarr:/config
+      - /opt/media-center/config/radarr:/config
       - /media/hdd1/data:/data
     ports:
       - 7878:7878
@@ -82,7 +82,7 @@ services:
     image: linuxserver/sonarr:latest
     restart: unless-stopped
     volumes:
-      - /opt/pi-media-center/config/sonarr:/config
+      - /opt/media-center/config/sonarr:/config
       - /media/hdd1/data:/data
     ports:
       - 8989:8989
@@ -92,7 +92,7 @@ services:
     image: linuxserver/overseerr:latest
     restart: unless-stopped
     volumes:
-      - /opt/pi-media-center/config/overseerr:/config
+      - /opt/media-center/config/overseerr:/config
     ports:
       - 5055:5055
 
@@ -101,7 +101,7 @@ services:
     image: linuxserver/bazarr:latest
     restart: unless-stopped
     volumes:
-      - /opt/pi-media-center/config/bazarr:/config
+      - /opt/media-center/config/bazarr:/config
       - /media/hdd1/data:/data
     ports:
       - 6767:6767

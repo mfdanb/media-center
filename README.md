@@ -1,11 +1,11 @@
-# pi-media-center
+# media-center
 
 For a high level walkthrough, read [this](WALKTHROUGH.md).
 
 run:
 
 ```
-docker compise up -d
+docker compose up -d
 ```
 
 update images:
