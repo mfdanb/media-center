@@ -75,6 +75,7 @@ services:
     volumes:
       - /home/media-center/config/radarr:/config
       - /media/hdd1/data:/data
+      - /home/qbittorrent-downloads:/downloads
     ports:
       - 7878:7878
 
@@ -85,6 +86,7 @@ services:
     volumes:
       - /home/media-center/config/sonarr:/config
       - /media/hdd1/data:/data
+      - /home/qbittorrent-downloads:/downloads
     ports:
       - 8989:8989
 
