@@ -22,6 +22,7 @@ services:
     container_name: plex
     image: linuxserver/plex:latest
     restart: unless-stopped
+    network_mode: host
     volumes:
       - /home/media-center/config/plex:/config
       - /media/hdd1/data/media:/data/media
