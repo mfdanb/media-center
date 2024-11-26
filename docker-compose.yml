@@ -1,55 +1,27 @@
 services:
 
-  glances:
-    container_name: glances
-    image: nicolargo/glances:latest
-    restart: unless-stopped
-    pid: host
-    network_mode: host
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - "GLANCES_OPT=-w"
-    ports:
-      - 61208-61209:61208-61209
-
   qbittorrent:
     container_name: qbittorrent
-    image: qbittorrentofficial/qbittorrent-nox:latest
+    image: linuxserver/qbittorrent:latest
     restart: unless-stopped
-    environment:
-      - QBT_EULA=accept
-      - QBT_VERSION=latest
-      - QBT_WEBUI_PORT=8080
-      - TZ=UTC
-    ports:
-      # for bittorrent traffic
-      - 6881:6881/tcp
-      - 6881:6881/udp
-      # for WebUI
-      - 8080:8080/tcp
     volumes:
-      - /home/media-center/config/qbittorrent-nox:/config
+      - /home/media-center/config/qbittorrent:/config
       - /home/qbittorrent-downloads:/downloads
-      - /media/hdd1/data:/data
-
-  filebrowser:
-    container_name: filebrowser
-    image: filebrowser/filebrowser:latest
-    restart: unless-stopped
     ports:
-      - 8081:80
-    volumes:
-      - /home/media-center/config/filebrowser:/config
-      - /media/hdd1:/srv
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Zurich
+      - WEBUI_PORT=8080
+      - TORRENTING_PORT=6881
 
   plex:
     container_name: plex
     image: linuxserver/plex:latest
     restart: unless-stopped
-    network_mode: host
-    environment:
-      - VERSION=docker
     volumes:
       - /home/media-center/config/plex:/config
       - /media/hdd1/data/media:/data/media
@@ -57,6 +29,11 @@ services:
       - 32400:32400
     devices:
       - /dev/dri:/dev/dri
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Zurich
+      - VERSION=docker
 
   prowlarr:
     container_name: prowlarr
@@ -64,9 +41,12 @@ services:
     restart: unless-stopped
     volumes:
       - /home/media-center/config/prowlarr:/config
-      - /media/hdd1/data:/data
     ports:
       - 9696:9696
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Zurich
 
   radarr:
     container_name: radarr
@@ -78,6 +58,10 @@ services:
       - /home/qbittorrent-downloads:/downloads
     ports:
       - 7878:7878
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Zurich
 
   sonarr:
     container_name: sonarr
@@ -89,6 +73,10 @@ services:
       - /home/qbittorrent-downloads:/downloads
     ports:
       - 8989:8989
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Zurich
 
   overseerr:
     container_name: overseerr
@@ -98,6 +86,10 @@ services:
       - /home/media-center/config/overseerr:/config
     ports:
       - 5055:5055
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Zurich
 
   bazarr:
     container_name: bazarr
@@ -108,15 +100,46 @@ services:
       - /media/hdd1/data:/data
     ports:
       - 6767:6767
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Zurich
 
   flaresolverr:
     container_name: flaresolverr
     image: flaresolverr/flaresolverr:latest
-    restart: unless-stopped 
+    restart: unless-stopped
+    ports:
+      - 8191:8191
     environment:
       - LOG_LEVEL=${LOG_LEVEL:-info}
       - LOG_HTML=${LOG_HTML:-false}
       - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
-      - TZ=Europe/London
+      - TZ=Europe/Zurich
+
+  # system monitoring dashboard
+  glances:
+    container_name: glances
+    image: nicolargo/glances:latest
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - "GLANCES_OPT=-w"
     ports:
-      - "8191:8191"
+      - 61208-61209:61208-61209
+
+  filebrowser:
+    container_name: filebrowser
+    image: filebrowser/filebrowser:latest
+    restart: unless-stopped
+    ports:
+      - 8081:80
+    volumes:
+      - /home/media-center/config/filebrowser:/config
+      - /media/hdd1:/srv/hdd1
+      - /home/media-center:/srv/media-center
+      - /home/qbittorrent-downloads:/srv/downloads
+    environment:
+      - PUID=1000
+      - PGID=1000
