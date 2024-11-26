@@ -1,27 +1,27 @@
 services:
 
   # vpn client
-  gluetun:
-    container_name: gluetun
-    image: qmcgaw/gluetun:latest
-    restart: unless-stopped
-    cap_add:
-      - NET_ADMIN
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Zurich
-      - VPN_SERVICE_PROVIDER=protonvpn
-      - VPN_TYPE=wireguard
-      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
-      - SERVER_COUNTRIES=Switzerland
-      - UPDATER_PERIOD=24h
-    volumes:
-      - /home/media-center/config/gluetun:/gluetun
-    ports:
-      - 8080:8080 # qbittorrent webui
+  # gluetun:
+  #   container_name: gluetun
+  #   image: qmcgaw/gluetun:latest
+  #   restart: unless-stopped
+  #   cap_add:
+  #     - NET_ADMIN
+  #   devices:
+  #     - /dev/net/tun:/dev/net/tun
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=Europe/Zurich
+  #     - VPN_SERVICE_PROVIDER=protonvpn
+  #     - VPN_TYPE=wireguard
+  #     - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
+  #     - SERVER_COUNTRIES=Switzerland
+  #     - UPDATER_PERIOD=24h
+  #   volumes:
+  #     - /home/media-center/config/gluetun:/gluetun
+  #   ports:
+  #     - 8080:8080 # qbittorrent webui
 
   qbittorrent:
     container_name: qbittorrent
@@ -30,15 +30,19 @@ services:
     volumes:
       - /home/media-center/config/qbittorrent:/config
       - /home/qbittorrent-downloads:/downloads
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Zurich
       - WEBUI_PORT=8080
       - TORRENTING_PORT=6881
-    network_mode: service:gluetun
-    depends_on:
-      - gluetun
+    # network_mode: service:gluetun
+    # depends_on:
+    #   - gluetun
 
   plex:
     container_name: plex
