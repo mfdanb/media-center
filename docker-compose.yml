@@ -45,17 +45,17 @@ services:
 
   nzbget:
     container_name: nzbget
-    images: linuxserver/qbittorrent:latest
+    images: linuxserver/nzbget:latest
     restart: unless-stopped
     volumes:
       - /home/media-center/config/nzbget:/config
       - /home/nzbget-downloads:/downloads
+    ports:
+      - 6789:6789
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Zurich
-      - NZBGET_USER=admin,
-      - NZBGET_PASS=my-super-password,
 
   plex:
     container_name: plex

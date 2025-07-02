@@ -1,17 +1,17 @@
 # media-center
 
-For a high level walkthrough, read [this](WALKTHROUGH.md).
+tl;dr: my multimedia server. for a high level walkthrough, read [this](WALKTHROUGH.md).
 
-run:
+
+to run:
 
 ```
 docker compose up -d
 ```
 
-update images:
+to update images:
 
 ```
-docker compose down
 docker compose pull
 docker compose up -d
 ```
