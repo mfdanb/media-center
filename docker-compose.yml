@@ -43,13 +43,13 @@ services:
     # depends_on:
     #   - gluetun
 
-  nzbget:
-    container_name: nzbget
-    image: linuxserver/nzbget:latest
+  sabnzbd:
+    container_name: sabnzbd
+    image: linuxserver/sabnzbd:latest
     restart: unless-stopped
     volumes:
-      - /home/media-center/config/nzbget:/config
-      - /home/nzbget-downloads:/downloads
+      - /home/media-center/config/sabnzbd:/config
+      - /home/sabnzbd-downloads:/downloads
     ports:
       - 6789:6789
     environment:

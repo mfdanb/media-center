@@ -115,8 +115,9 @@ This is gonna be a rough tutorial. Check the links, they will contain all the in
    3. Settings > Quality profiles
       1. Set up your quality profiles and custom format weights
    4. Settings > Download clients
-      1. Connect your torrent client (qBittorrent)
-      2. Connect your usenet client (nzbget)
+      1. Connect your download clients
+         1. qBittorrent
+         2. (optional) sabnzbd
 2. Prowlarr (https://wiki.servarr.com/en/prowlarr)
    1. Indexers
       1. Add your desired indexers
@@ -130,8 +131,8 @@ This is gonna be a rough tutorial. Check the links, they will contain all the in
       1. `docker logs qbittorrent`
       2. make sure your download folder is set according to the volumes attached in your docker compose file
          1. for example, mine is set to `/data/downloads` (NEVER download directly into your managed media library / plex folders)
-4. nzbget (https://trash-guides.info/Downloaders/NZBGet/Basic-Setup/)
-   1. To log in on the web UI, enter the default credentials (which can be found on [dockerhub](https://hub.docker.com/r/linuxserver/nzbget) or [github](https://github.com/linuxserver/docker-nzbget))
+4. (optional) sabnzbd (https://trash-guides.info/Downloaders/SABnzbd/Basic-Setup/)
+   1. You can [read about usenet here](https://old.reddit.com/r/usenet/comments/181x1ly/introduction_to_usenet_the_2023_were_all_still/) if you're unfamiliar
 5. Overseerr
    1. Settings > Plex
       1. Add your Plex
@@ -141,6 +142,5 @@ This is gonna be a rough tutorial. Check the links, they will contain all the in
    4. Settings > Users > Auto-requets
       1. You can enable auto-requests from your Plex watchlists
 6. Bazarr (https://trash-guides.info/Bazarr/)
-7. Hardlinks / docker volumes
-   1. I guess this is optional, but if you set up your volumes correctly, you can avoid slow/expensive COPY operations when your media is being moved around
-      1. https://trash-guides.info/Hardlinks/Hardlinks-and-Instant-Moves/
+7. (optional) Hardlinks / docker volumes (https://trash-guides.info/Hardlinks/Hardlinks-and-Instant-Moves/)
+   1. if you set up your volumes correctly, you can avoid slow/expensive IO operations when your media is being moved around 
