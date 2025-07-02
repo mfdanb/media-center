@@ -1,5 +1,4 @@
 services:
-
   # vpn client
   # gluetun:
   #   container_name: gluetun
@@ -44,6 +43,20 @@ services:
     # depends_on:
     #   - gluetun
 
+  nzbget:
+    container_name: nzbget
+    images: linuxserver/qbittorrent:latest
+    restart: unless-stopped
+    volumes:
+      - /home/media-center/config/nzbget:/config
+      - /home/nzbget-downloads:/downloads
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Zurich
+      - NZBGET_USER=admin,
+      - NZBGET_PASS=my-super-password,
+
   plex:
     container_name: plex
     image: linuxserver/plex:latest
@@ -82,7 +95,8 @@ services:
     volumes:
       - /home/media-center/config/radarr:/config
       - /media/hdd1/data:/data
-      - /home/qbittorrent-downloads:/downloads
+      - /home/qbittorrent-downloads:/downloads/qbittorent
+      - /home/nzbget-downloads:/downloads/nzbget
     ports:
       - 7878:7878
     environment:
@@ -97,7 +111,8 @@ services:
     volumes:
       - /home/media-center/config/sonarr:/config
       - /media/hdd1/data:/data
-      - /home/qbittorrent-downloads:/downloads
+      - /home/qbittorrent-downloads:/downloads/qbittorent
+      - /home/nzbget-downloads:/downloads/nzbget
     ports:
       - 8989:8989
     environment:
@@ -166,7 +181,8 @@ services:
       - /home/media-center/config/filebrowser:/config
       - /media/hdd1:/srv/hdd1
       - /home/media-center:/srv/media-center
-      - /home/qbittorrent-downloads:/srv/downloads
+      - /home/qbittorrent-downloads:/srv/downloads/qbittorent
+      - /home/nzbget-downloads:/srv/downloads/nzbget
     environment:
       - PUID=1000
       - PGID=1000
