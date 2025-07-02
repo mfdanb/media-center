@@ -51,7 +51,7 @@ services:
       - /home/media-center/config/sabnzbd:/config
       - /home/sabnzbd-downloads:/downloads
     ports:
-      - 6789:6789
+      - 6789:8080
     environment:
       - PUID=1000
       - PGID=1000
