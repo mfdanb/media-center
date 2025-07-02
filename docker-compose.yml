@@ -96,7 +96,7 @@ services:
       - /home/media-center/config/radarr:/config
       - /media/hdd1/data:/data
       - /home/qbittorrent-downloads:/downloads/qbittorent
-      - /home/nzbget-downloads:/downloads/nzbget
+      - /home/sabnzbd-downloads:/downloads/sabnzbd
     ports:
       - 7878:7878
     environment:
@@ -112,7 +112,7 @@ services:
       - /home/media-center/config/sonarr:/config
       - /media/hdd1/data:/data
       - /home/qbittorrent-downloads:/downloads/qbittorent
-      - /home/nzbget-downloads:/downloads/nzbget
+      - /home/sabnzbd-downloads:/downloads/sabnzbd
     ports:
       - 8989:8989
     environment:
@@ -182,7 +182,7 @@ services:
       - /media/hdd1:/srv/hdd1
       - /home/media-center:/srv/media-center
       - /home/qbittorrent-downloads:/srv/downloads/qbittorent
-      - /home/nzbget-downloads:/srv/downloads/nzbget
+      - /home/sabnzbd-downloads:/srv/downloads/sabnzbd
     environment:
       - PUID=1000
       - PGID=1000
