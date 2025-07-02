@@ -45,7 +45,7 @@ services:
 
   nzbget:
     container_name: nzbget
-    images: linuxserver/nzbget:latest
+    image: linuxserver/nzbget:latest
     restart: unless-stopped
     volumes:
       - /home/media-center/config/nzbget:/config
